@@ -1,15 +1,19 @@
 # circlelizer-maya
 
+![cover image for circlelizer-maya](resources/cover.png)
+
 **Circlelizer** is a plugin for Maya which is written in Python with *Maya API 2.0*. It generates a circle from a given selection. You can either let the program calculate all parameters or define your own.
 
-Within the about tab you can find contact information.
+![example](resources/example_01.png)
 
-## [INFO] 26.04.17
----
-Added a new support e-mail.
+## GUI
+![gui](resources/gui_view098.png)
+
+its also possible to deactive the style:
+
+![gui](resources/gui_view_nostyle098.png)
 
 ## Changelog
---- 
 ***Latest Versions:***
 
 circlelize v0.98
@@ -30,12 +34,13 @@ circlelizerInterface v2.0
 - [08.03.17] - released new version v0.98
 - [28.02.17] - modified the mod file for Maya version 2017
 - [20.02.17] - added circlelizer.mod for easier installation
-- [09.11.16] - added support for older versions of Maya.
+- [09.11.16] - added support for older versions of Maya
 - [19.10.16] - published
 
 
 ***Page Changelog:***
 
+- [03.04.19] - updated text for github
 - [10.15.17] - updated text for installation
 - [08.03.17] - updated text for new version
 - [20.02.17] - updated installation instruction for .mod file
@@ -44,7 +49,6 @@ circlelizerInterface v2.0
 
 
 ## Installation Instructions
----
 You just need to place the folder which is inside the zip folder to a location which you prefer. An icon for the shelf is inside the icons folder (icon.png).
 
 Replace the **\<enter here full path\>** with the full path to your circlelizer folder in the **circlelizer.mod** file.
@@ -88,7 +92,7 @@ the normal which will describe the circle facing direction
 
 #### <code>circlelizerInterface</code> supports:
 - **slideInput**, si *bool* <br>
-custom widget
+enable/disable custom widget
 - **style**, s *bool* <br>
 enable/disable stylesheet
 - **logo**, l *bool* <br>
@@ -99,7 +103,6 @@ enable/disable logo widget
 
 
 ## Supported Maya Versions
---- 
 - Maya 2017
 - Maya 2016.5
 - Maya 2016
@@ -111,5 +114,3 @@ enable/disable logo widget
 
 
 ## Thanks!
---- 
-feel free to contact me if you find any bugs or having a request, etc.!

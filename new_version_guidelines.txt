@@ -1,0 +1,7 @@
+# guidelines for a new update of circlelizer
+
+- turn off debug mode within the circlelizer.py
+- change the version within app and website
+- change the text within app and website
+- check for new parameters which needs to be added to the website
+- change the date of the script at the top

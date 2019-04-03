@@ -1,0 +1,117 @@
+QWidget#body {
+    background-color: #303030;
+}
+
+/*CheckBox*/
+
+QCheckBox {
+    color: #5e5e5e;
+    border: none;
+}
+
+QCheckBox:checked {
+    color: #efefef;
+}
+
+/*PushButton*/
+
+QPushButton {
+    background-color: #3D9AE2;
+    color: #303030;
+    border: none;
+    padding: 3px;
+}
+
+QPushButton:hover {
+    background-color: #86aaeb;
+}
+
+QPushButton:pressed {
+    background-color: #efefef;
+}
+
+QPushButton:disabled {
+    background-color: rgba(61, 154, 226, 0.47)
+}
+
+/*PushButton Help Button*/
+QPushButton#b_help {
+    background-color: transparent;
+}
+
+QPushButton#b_help:hover {
+    background-color: #efefef;
+}
+
+/*LineEdit*/
+
+QLineEdit {
+    background-color: #efefef;
+    color: #303030;
+    border: none;
+}
+
+QLineEdit:disabled {
+    background-color: #5e5e5e
+}
+
+/*QLabel*/
+QLabel {
+    color: #efefef;
+}
+
+QLabel:disabled {
+    color: #5e5e5e
+}
+
+/*QTabWidget*/
+QTabBar {
+    color: #303030;
+}
+
+QTabWidget:pane {
+    border-top: 2px solid #efefef;
+    border-bottom: 2px solid #efefef;
+    background-color: #404040;
+}
+
+QTabWidget:tab-bar {
+    alignment: left;
+}
+
+QTabBar:tab {
+    border: none;
+    background-color: #efefef;
+    padding: 0.5em;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                    stop: 0 #3D9AE2, stop: 0.149 #3D9AE2,
+                                    stop: 0.15 #efefef, stop: 1.0 #efefef);
+}
+
+/*QGridLayout*/
+QGridLayout {
+    background-color: red;
+}
+
+/*QToolTip*/
+QToolTip {
+    background-color: #303030;
+    color: #efefef;
+    border: 1px solid #3D9AE2;
+}
+
+/*QTextEdit*/
+QTextEdit {
+    background-color: #303030;
+    color: #efefef;
+    border: none;
+}
+
+/*QDialog*/
+QDialog {
+    background-color: #303030;
+    border: none;
+}
