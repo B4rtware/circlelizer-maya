@@ -28,11 +28,11 @@ circlelizerInterface v2.0
 - improved border edge extraction
 - removed temporary extract border flag
 
-[depracated]
+[deprecated]
 ***Plugin Changelog***
 - visible inside the commit history
 
-[depracated]
+[deprecated]
 ***Page Changelog:***
 - visible inside the commit history
 
