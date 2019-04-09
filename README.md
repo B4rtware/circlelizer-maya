@@ -99,3 +99,4 @@ enable/disable logo widget
 **Note**: SlideInput widget does not work with 2016.5 and below!
 
 ## Thanks!
+LifeArtist/B4rtware
