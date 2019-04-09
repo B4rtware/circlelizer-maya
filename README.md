@@ -92,11 +92,11 @@ enable/disable logo widget
 
 *If anyone wonders about the "__slideInput__" it is a custom widget which I have written. Everything it does is imitating the normal input from Maya where you can drag your mouse to define a number.*
 
+**Note**: SlideInput widget does not work with 2016.5 and below!
+
 ## Supported Maya Versions
 - Maya 2019 (tested)
 - It should work till version Maya 2013 (Please give me a feedback on versions 2013 - 2018)
-
-**Note**: SlideInput widget does not work with 2016.5 and below!
 
 ## Thanks!
 LifeArtist/B4rtware
