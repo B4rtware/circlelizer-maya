@@ -1,5 +1,5 @@
-# LifeArtist
-# 2017.02.20
+# B4rtware
+# 2016 - 2019
 # Circlelizer
 
 import maya.api.OpenMaya as om
