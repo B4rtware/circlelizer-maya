@@ -1386,7 +1386,7 @@ def maya_useNewAPI():
     pass
 
 def initializePlugin(mObject):
-    mPlugin = om.MFnPlugin(mObject, vendor = "LifeArtist", version = VERSION[1:])
+    mPlugin = om.MFnPlugin(mObject, vendor = "B4rtware", version = VERSION[1:])
 
     for command in commands:
         try:
