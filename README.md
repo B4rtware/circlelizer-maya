@@ -53,6 +53,10 @@ Inside Maya you need to go to <code>Windows -> Settings/Preferences -> Plug-in M
 
 Once it has successfully loaded the plug-in you can use any commands from it.
 
+---
+
+*The `_ui_*` folders are used to have an isolated tested enviroment for the error und overall gui without the need to start maya.*
+
 ## Usage
 
 #### In Mel:
@@ -63,8 +67,6 @@ Once it has successfully loaded the plug-in you can use any commands from it.
 <code>import maya.cmds as cmds</code><br>
 <code>cmds.circlelize()</code> or <br>
 <code>cmds.circlelizerInterface()</code><br>
-
-
 
 ## Commands
 It includes two commands **circlelize(...)** and **circlelizerInterface(...)** the first one is the actual tool and the second one is used for loading the graphical interface.
