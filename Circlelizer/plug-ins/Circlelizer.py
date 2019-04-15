@@ -617,7 +617,7 @@ class Circlelizer(om.MPxCommand):
             float: average radius of the selection
         """
 
-        radius = 0
+        radius = 0.0
         while not mVertIter.isDone():
             radius += mVertIter.position().distanceTo(avgMidPoint)
             mVertIter.next()
@@ -997,7 +997,7 @@ class Circlelizer(om.MPxCommand):
         """
 
         phi = 0.0
-        alpha = float(margin)/len(orderedVerts)
+        alpha = float(margin)/float(len(orderedVerts))
         sectionDegree = 0
 
         calcedPoints = []
