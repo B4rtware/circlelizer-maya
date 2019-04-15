@@ -1,5 +1,5 @@
-# LifeArtist
-# 2017.02.20
+# B4rtware
+# 2016 - 2019
 # Circlelizer
 
 import maya.api.OpenMaya as om
@@ -1540,7 +1540,7 @@ def maya_useNewAPI():
     pass
 
 def initializePlugin(mObject):
-    mPlugin = om.MFnPlugin(mObject, vendor = "LifeArtist", version = VERSION[1:])
+    mPlugin = om.MFnPlugin(mObject, vendor = "B4rtware", version = VERSION[1:])
 
     for command in commands:
         try:
