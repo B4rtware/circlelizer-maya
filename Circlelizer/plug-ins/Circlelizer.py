@@ -1044,19 +1044,6 @@ class Circlelizer(om.MPxCommand):
             projectedVerts.append(om.MPoint(rayHit[0]))
         return projectedVerts
 
-    @usingIterator_c
-    def _checkForConnectingVert(self, mVertIter, first, last):
-        """checks whether a loop can be connected through a vert which had
-        not been identified as a border vertex"""
-
-        mVertiter.setIndex(first)
-        neighboursFirst = first.getConnectedVertices()
-
-    @usingIterator_c
-    def _getInnerVerticies(self, orderedVerts, maxVerts = 80000):
-        """gets all vertices which are inside a closed circle"""
-        pass
-
 # +----------------------------------------------------------------------------+
 # |             Graphical User Interface QTDialog (info/about) Qt Class        |
 # +----------------------------------------------------------------------------+
