@@ -360,10 +360,29 @@ class Circlelizer(om.MPxCommand):
     def _calculateTransforms(self, mVertIter, circleVerts, orderedVerts,
                              midPoint, radius, circleNormal,
                              firstInnerVerticesLoop):
+        """calculates new points for a circle
+
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            circleVerts (List[om.MVector]): list of vertices which defines a circle
+                and y is 0
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            midPoint (om.MPoint): middle point of the selection
+            radius (float): radius for the circle
+            circleNormal (om.MVector): direction the circle face is facing to
+            
+
+        Returns:\n
+            List[om.MPoint]: a list of transform points which form a circle
+        """
 
         orderedVertsPos = []
         #+---------------------------------------------------------------------+
-        #| retrieve all positions of orederedVerts and move them to origin     |
+        #| retrieve all positions of the ordered vertices (orderedVerts)       |
+        #| and create a new list with all vertices moved to the origin         |
         #+---------------------------------------------------------------------+
         for vert in orderedVerts:
             mVertIter.setIndex(vert)
@@ -378,18 +397,18 @@ class Circlelizer(om.MPxCommand):
         # first we will get the rotation for all of the verts
         rotationToPlane = circleNormal.rotateTo(om.MVector.kYaxisVector)
 
-        # create a list of verts which will hold all sorrounded vertices.
+        # create a list of verts which will hold all surrounded vertices.
         # Including outer and inner Vertices
         surroundedVerts = []
         for vert in orderedVerts:
             mVertIter.setIndex(vert)
-            # If a vertex has to or more connected neighbours which arent
+            # If a vertex has to or more connected neighbors which aren't
             # in the selection list it will calculates an average point.
             surroundedNeighbours = []
             #print("[DEBUG] vert = ({0})".format(vert))
             #print("[DEBUG] neighbours = ")
             for neighbour in mVertIter.getConnectedVertices():
-                # if a neighbour isnt inside the list and not in the inner list
+                # if a neighbour isn't inside the list and not in the inner list
                 # its an outer vertex
                 #print("[DEBUG] n: {0} f: {1}".format(neighbour, firstInnerVerticesLoop))
                 if neighbour not in orderedVerts and neighbour not in firstInnerVerticesLoop:
@@ -466,7 +485,18 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _getPositions(self, mVertIter, orderedVerts):
-        """retrieves all positions from the mVertIter"""
+        """retrieves all positions from the mVertIter
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+
+        Returns:\n
+            List[om.MPoint]: list of position from the ordered vertices
+        """
         positions = []
         for vert in orderedVerts:
             mVertIter.setIndex(vert)
@@ -476,7 +506,15 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _edgesToVerts(self, mItMeshEdgeComponent):
-        """converts an edge selection into an vertices selection"""
+        """converts an edge selection into an vertices selection
+
+        Args:\n
+            mItMeshEdgeComponent (om.MItMeshEdge): iterator of edge
+                components to be converted into vertices
+
+        Returns:\n
+            Set[int]: list of vertex id's        
+        """
 
         # we create a set because then we dont need to care about if a vertex
         # was added twice
@@ -491,7 +529,15 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _facesToVerts(self, mItMeshPolygonComponent):
-        """converts a face selection into a vertex selection"""
+        """converts a face selection into a vertex selection
+
+        Args:\n
+            mItMeshPolygonComponent (om.MItMeshPolygon): iterator of polygon
+                components to be converted into vertices
+
+        Returns:\n
+            Set[int]: list of vertex id's
+        """
 
         # we create a set because then we dont need to care about if a vertex
         # was added twice
@@ -506,8 +552,20 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _transformVerts(self, mVertIter, calcedVerts, orderedVerts, midPoint):
-        """basically just applies the calculated new point onto the real 
-        points"""
+        """applies the calculated new points onto the real points
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            calcedVerts (List[om.MPoint]): a list of transform points which form a circle
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            midPoint (om.MPoint): middle point of the selection
+
+        Returns:\n
+            None
+        """
         # tempory: set midPoint to zero if projectOnMesh is activated
         # because it was already applied
         if self.projectOnMesh:
@@ -523,9 +581,19 @@ class Circlelizer(om.MPxCommand):
             self.calculatedPoints.append(calcedVert)
             mVertIter.setPosition(calcedVert)
 
+    # TODO: check whether really the whole mVertIter object should be traversed and not \
+    # only the orderedVerts same for radius
     @usingIterator_c
     def _avgMidPoint(self, mVertIter):
-        """calculates the average point of all selected vertices"""
+        """calculates the average point of all selected vertices
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+
+        Returns:\n
+            om.MPoint: middle point from the points of the mVertIter object
+        """
 
         numVertices = mVertIter.count()
         avgMidPoint = om.MPoint()
@@ -539,7 +607,15 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _avgRadius(self, mVertIter, avgMidPoint):
-        """calculcates the average radius of all selected vertices"""
+        """calculates the average radius of all selected vertices
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+
+        Returns:\n
+            float: average radius of the selection
+        """
 
         radius = 0
         while not mVertIter.isDone():
@@ -550,7 +626,15 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _avgNormal(self, mVertIter):
-        """calculates the average normal of all points from the mVertIter"""
+        """calculates the average normal of all points from the mVertIter
+    
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+
+        Returns:\n
+            om.MVector: average normal (vector) from the mVertIter object
+        """
 
         avgNormal = om.MVector()
         while not mVertIter.isDone():
@@ -562,7 +646,21 @@ class Circlelizer(om.MPxCommand):
     @usingIterator_c
     def _getContinuesSelection(self, mVertIter, mDagPath, selectedVerts,
                                selectedEdges):
-        """reorders the given vertices into a continues selection."""
+        """reorders the given vertices into a continues selection.
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            mDagPath (om.MDagPath): path to the DAG node from the selection
+            selectedVerts (List[int]): vertices id's of the selected vertices
+            selectedEdges (List[int]): edge id's of the selected edges
+
+        Returns:\n
+            List[int]: list of vertices id's which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another one the selection
+            
+        """
 
         # create a temporary MItMeshEdge component to iterate over the edges
         mEdgeIter = om.MItMeshEdge(mDagPath)
@@ -615,7 +713,16 @@ class Circlelizer(om.MPxCommand):
         return orderedVerts
 
     def _extractBorderVerts(self, mDagPath, selectedVerts):
-        """extracts all border vertices from a given list of vertices"""
+        """extracts all border vertices from a given list of vertices
+        
+        Args:\n
+            mDagPath (om.MDagPath): path to the DAG node from the selection
+            selectedVerts (List[int]): vertices id's of the selected vertices
+
+        Returns:\n
+            Set[int]: collection of vertex id's which are forming the border
+                of the selection (have neighbours which aren't inside the selection)
+        """
 
         # create a new MItMeshVertex object to get the neighbours of the
         # vertex and only add those vertices which arent inside the
@@ -677,7 +784,19 @@ class Circlelizer(om.MPxCommand):
 
     def _isClockwiseOrder(self, mVertIter, orderedVerts, avgNormal):
         """determines whether the given ordered list of verts is in a clockwise
-        order or in an anti clockwise order"""
+        order or in an anti clockwise order
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            avgNormal (om.MVector): normal of the circle face facing direction
+
+        Returns:\n
+            bool: true if the circle is in clockwise order, false if not
+        """
 
         orderedVertsLen = len(orderedVerts)
         # sum the determinants of all edges variable
@@ -717,7 +836,15 @@ class Circlelizer(om.MPxCommand):
 
     def _getSelectedVertices(self):
         """returns the current selection as vertices and as loop. It only takes
-        1 object into account"""
+        1 object into account
+        
+        Args:\n
+            None
+
+        Returns:\n
+            (om.MDagPath, Set[int], Set[int]): path of the DAG node, collection of all selected
+                vertices id's and edge id's
+        """
         # get current component selection as a list
         mSelList = om.MGlobal.getActiveSelectionList()
 
@@ -728,6 +855,8 @@ class Circlelizer(om.MPxCommand):
             error.exec_()
             return None
 
+        # TODO: this is the function which will be adjusted to work for multiple
+        # selections (getComponent(n))?
         # gets the first component in the list, the others are ignored
         mDagPath, mObj = mSelList.getComponent(0)
 
@@ -818,7 +947,21 @@ class Circlelizer(om.MPxCommand):
 
     @usingIterator_c
     def _getInnerOuterVertices(self, mVertIter, orderedVerts, midpoint):
-        """iterate over all ordered verts and for each vertex check which neighbours are narrowrer then the ordered vertex"""
+        """iterate over all ordered verts and for each vertex check which neighbours are closer than the ordered vertex
+        
+        Args:\n
+            mVertIter (om.MItMeshVertex): iteration object which contains at least
+                the vertices which are selected
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            midPoint (om.MVector): middle point of the selection
+
+        Returns:\n
+            (List[int], List[int]): list of inner vertices and outer vertices id's
+        """
+        # FIXME: so this only works if the mesh does not have overlapping geometry inside the selection (eventually  it can be checked with isPlanar
+        # so check if the selection has planar faces) 
         innerVertices = []
         outerVertices = []
         for vertex in orderedVerts:
@@ -840,7 +983,18 @@ class Circlelizer(om.MPxCommand):
         return (innerVertices, outerVertices)
 
     def _calculateCircle(self, orderedVerts, margin, radius):
-        """calculates each section and creates a circle out of that"""
+        """calculates each section and creates a circle out of that
+        
+        Args:\n
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            margin (float): degree of the circle section default (360)
+            radius (float): radius of the circle
+
+        Returns:\n
+            List[om.MPoint]: a list of transform points which form a circle
+        """
 
         phi = 0.0
         alpha = float(margin)/len(orderedVerts)
@@ -853,7 +1007,7 @@ class Circlelizer(om.MPxCommand):
             # convert degree in radiant
             phi = sectionDegree * (m.pi/180.0)
 
-            # calcuate points
+            # calculate points
             x = radius * m.cos(phi)
             z = radius * m.sin(phi)
             #print("[DEBUG] ({0:>8.3f}, {1:>8.3f}, {2:>8.3f})".format(x, 0, z))
@@ -865,6 +1019,19 @@ class Circlelizer(om.MPxCommand):
 
     def _projectVertsOnMeshSurface(self, mDagPath, orderedVerts, avgNormal,
                                    midPoint):
+        """project the vertices onto the surface so calculate the circle in place
+
+        Args:\n
+            mDagPath (om.MDagPath): path to the DAG node from the selection
+            orderedVerts (List[int]): list of vertices ids which form a continues
+                row (or circle) every neighbor in the list is a neighbor of one
+                another on the selection
+            avgNormal (om.MVector): normal of the circle
+            midPoint (om.MPoint): middle point of the circle
+
+        Returns:\n
+            List[om.MPoint]: list of all projected points positions
+        """
         meshToProjectOn = om.MFnMesh(mDagPath)
         projectedVerts = []
         for startPoint in orderedVerts:
