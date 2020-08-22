@@ -1,5 +1,5 @@
 # B4rtware
-# 2016 - 2019
+# 2016 - 2020
 # Circlelizer
 
 import maya.api.OpenMaya as om
@@ -28,7 +28,7 @@ PUBLISH = 1
 MODE = DEBUG
 
 # version constant which will be used in the window title
-VERSION = "v0.98"
+VERSION = "v0.99"
 
 #+-----------------------------------------------------------------------------+
 #| Version Selection use 2017 or 2016 and below                                |

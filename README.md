@@ -16,9 +16,11 @@ its also possible to deactive the style:
 ## Changelog
 ***Latest Versions:***
 
-circlelize v0.98
+circlelize v0.99
 circlelizerInterface v2.0
 
+***v0.99 Changelog***
+- support for Maya 2020
 
 ***v0.98 Changelog***
 
@@ -97,7 +99,7 @@ enable/disable logo widget
 **Note**: SlideInput widget does not work with 2016.5 and below!
 
 ## Supported Maya Versions
-- Maya 2019 (tested)
+- Maya 2020 (tested)
 - It should work till version Maya 2013 (Please give me a feedback on versions 2013 - 2018)
 
 ## Thanks!
