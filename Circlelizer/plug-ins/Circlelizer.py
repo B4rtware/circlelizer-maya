@@ -415,7 +415,7 @@ class Circlelizer(om.MPxCommand):
                 # its an outer vertex
                 #print("[DEBUG] n: {0} f: {1}".format(neighbour, firstInnerVerticesLoop))
                 if neighbour not in orderedVerts and neighbour not in firstInnerVerticesLoop:
-                    print(neighbour)
+                    #print(neighbour)
                     mVertIter.setIndex(neighbour)
                     position = mVertIter.position()
                     # move to origin
