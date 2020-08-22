@@ -4,6 +4,10 @@
 
 **Circlelizer** is a plugin for Maya which is written in Python with *Maya API 2.0*. It generates a circle from a given selection. You can either let the program calculate all parameters or define your own.
 
+---
+
+**_Note_**: use this plugin at you own risk. Save your project each time before you are using it. In my test cases I hadn't any real problems but I can't test every little edge case. Keep in mind that this plugin is still in development.
+
 ![example](resources/example_01.png)
 
 ## GUI
@@ -29,15 +33,6 @@ circlelizerInterface v2.0
 - added projection on mesh
 - improved border edge extraction
 - removed temporary extract border flag
-
-[deprecated]
-***Plugin Changelog***
-- visible inside the commit history
-
-[deprecated]
-***Page Changelog:***
-- visible inside the commit history
-
 
 ## Installation Instructions
 
