@@ -53,6 +53,9 @@ from functools import partial
 # for own command import (gui)
 import maya.cmds as cmds
 
+# determine which maya version is beeing used
+is_version_2020 = cmds.about(version=True) == "2020"
+
 ## resolve the resource file paths
 themes_path = os.environ["CIRCLELIZER_THEMES_PATH"]
 docs_path = os.environ["CIRCLELIZER_DOCS_PATH"]
@@ -546,7 +549,10 @@ class Circlelizer(om.MPxCommand):
         while not mItMeshPolygonComponent.isDone():
             verts = mItMeshPolygonComponent.getVertices()
             faceVertices.update(verts)
-            mItMeshPolygonComponent.next(None)
+            if is_version_2020:
+                mItMeshPolygonComponent.next()
+            else:
+                mItMeshPolygonComponent.next(None)
 
         return faceVertices
 
